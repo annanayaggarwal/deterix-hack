@@ -97,13 +97,14 @@ router.post("/login", async (req, res) => {
 
     const token = jwt.sign({ email: user.email }, "helloworld", {});
 
-    user.tokens.push({ token: token });
+    user.token.push(token);
     await user.save();
 
     res.send({
       success: true,
       message: "User logged in successfully",
-      data: token,
+      createdUser: user,
+      token: token,
     });
   } catch (error) {
     res.send({
